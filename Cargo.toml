@@ -1,0 +1,13 @@
+[package]
+name = "lan_chat"
+version = "0.1.0"
+authors = ["Mendess2526 <pedro.mendes.26@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+cpal = "0.10.x"
+serde = { version = "*", features = ["derive"] }
+serde_bytes = "*"
+bincode = "1.1.4"
+structopt = "0.2.18"
+minimp3 = "0.3.x"
