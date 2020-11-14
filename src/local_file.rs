@@ -8,8 +8,8 @@ use std::fs::File;
 use std::path::PathBuf;
 
 pub fn local_file(file: PathBuf) -> Result<(), String> {
-    let event_loop = util::get_output_event_loop(cpal::default_host())?;
     let mut local_file = Decoder::new(File::open(file).map_err(|e| e.to_string())?);
+    let event_loop = util::get_output_event_loop(cpal::default_host())?;
     event_loop.run(move |stream_id, stream_result| {
         let sample = match local_file.next_frame() {
             Ok(data) => data,

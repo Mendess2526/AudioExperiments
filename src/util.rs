@@ -1,6 +1,6 @@
 use cpal::{
     traits::{DeviceTrait, EventLoopTrait, HostTrait},
-    SampleFormat,
+    SampleFormat, Format, SampleRate
 };
 
 fn get_device_and_format<H: HostTrait>(host: &H) -> Result<(H::Device, cpal::Format), String> {
@@ -13,7 +13,14 @@ fn get_device_and_format<H: HostTrait>(host: &H) -> Result<(H::Device, cpal::For
         .find(|format| format.data_type == SampleFormat::I16)
         .ok_or("no supported format?!")?
         .with_max_sample_rate();
-    Ok((device, format))
+    Ok((
+        device,
+        Format {
+            sample_rate: SampleRate(44100),
+            channels: 2,
+            ..format
+        },
+    ))
 }
 
 pub fn get_output_event_loop<H: HostTrait>(host: H) -> Result<H::EventLoop, String> {
